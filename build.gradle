@@ -9,12 +9,14 @@ repositories {
 def jUnitVersion = "6.0.0-M1",
     slf4jVersion = "2.0.17",
     appiumClientVersion = "8.6.0",
+    selenideVersion = "6.17.2",
     browserStackSDKVersion = "1.36.0"
 
 dependencies {
     testImplementation(
         "org.junit.jupiter:junit-jupiter-api:$jUnitVersion",
         "io.appium:java-client:$appiumClientVersion",
+        "com.codeborne:selenide:$selenideVersion",
         "com.browserstack:browserstack-java-sdk:$browserStackSDKVersion"
     )
     testRuntimeOnly(
