@@ -8,7 +8,7 @@ repositories {
 
 def jUnitVersion = "6.0.0-M1",
     slf4jVersion = "2.0.17",
-    appiumClientVersion = "9.5.0",
+    appiumClientVersion = "8.6.0",
     browserStackSDKVersion = "1.36.0"
 
 dependencies {
