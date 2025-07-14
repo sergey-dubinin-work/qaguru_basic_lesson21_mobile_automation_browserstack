@@ -1,5 +1,6 @@
 plugins{
     id 'java-library'
+    id 'io.qameta.allure' version "2.12.0"
 }
 
 repositories {
@@ -10,7 +11,23 @@ def jUnitVersion = "6.0.0-M1",
     slf4jVersion = "2.0.17",
     appiumClientVersion = "8.6.0",
     selenideVersion = "6.17.2",
-    browserStackSDKVersion = "1.36.0"
+    browserStackSDKVersion = "1.36.0",
+    allureVersion = '2.29.0'
+
+allure {
+    report {
+        version.set(allureVersion)
+    }
+    adapter {
+        autoconfigure.set(true)
+        aspectjWeaver.set(true)
+        frameworks {
+            junit5{
+                adapterVersion.set(allureVersion)
+            }
+        }
+    }
+}
 
 dependencies {
     testImplementation(

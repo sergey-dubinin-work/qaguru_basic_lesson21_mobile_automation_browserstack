@@ -1,6 +1,8 @@
 package guru.qa;
 
 import com.codeborne.selenide.Configuration;
+import guru.qa.helpers.Attach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import guru.qa.drivers.BrowserStackMobileDriver;
@@ -18,5 +20,11 @@ public class TestBase {
     @BeforeEach
     void setUp() {
         open();
+    }
+
+    @AfterEach
+    void tearDown() {
+        Attach.screenshotAs("Last screenshot");
+        Attach.pageSource();
     }
 }
