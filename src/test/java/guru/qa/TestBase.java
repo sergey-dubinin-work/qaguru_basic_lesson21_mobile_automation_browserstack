@@ -1,9 +1,9 @@
-package selenoidSample;
+package guru.qa;
 
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import selenoidSample.helpers.BrowserStackMobileDriver;
+import guru.qa.drivers.BrowserStackMobileDriver;
 
 import static com.codeborne.selenide.Selenide.open;
 

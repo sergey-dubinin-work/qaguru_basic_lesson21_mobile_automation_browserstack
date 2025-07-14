@@ -1,42 +1,42 @@
-package selenoidSample.helpers;
+package guru.qa.drivers;
 
-import com.codeborne.selenide.WebDriverProvider;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.Capabilities;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.MutableCapabilities;
-import org.openqa.selenium.WebDriver;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+public class BstackRunner {
+    public AndroidDriver driver;
 
-public class BrowserStackMobileDriver implements WebDriverProvider {
-
+    public static String userName, accessKey;
     public static Map<String, Object> browserStackYamlMap;
     public static final String USER_DIR = "user.dir";
 
-    public BrowserStackMobileDriver() {
+    public BstackRunner() {
         File file = new File(getUserDir() + "/browserstack.yml");
         this.browserStackYamlMap = convertYamlFileToMap(file, new HashMap<>());
     }
 
-    @Override
-    public WebDriver createDriver(Capabilities capabilities) {
-
-        String userName = System.getenv("BROWSERSTACK_USERNAME") != null
+    @BeforeEach
+    public void setUp() throws Exception {
+        userName = System.getenv("BROWSERSTACK_USERNAME") != null
                 ? System.getenv("BROWSERSTACK_USERNAME")
                 : (String) browserStackYamlMap.get("userName");
 
-        String accessKey = System.getenv("BROWSERSTACK_ACCESS_KEY") != null
+        accessKey = System.getenv("BROWSERSTACK_ACCESS_KEY") != null
                 ? System.getenv("BROWSERSTACK_ACCESS_KEY")
                 : (String) browserStackYamlMap.get("accessKey");
+
+        MutableCapabilities capabilities = new MutableCapabilities();
 
         // Получаем первое устройство из platforms
         List<Map<String, Object>> platforms = (List<Map<String, Object>>) browserStackYamlMap.get("platforms");
@@ -45,15 +45,8 @@ public class BrowserStackMobileDriver implements WebDriverProvider {
         // bstack:options - общие опции BrowserStack
         Map<String, Object> bstackOptions = new HashMap<>();
 
-        MutableCapabilities caps = (MutableCapabilities) capabilities;
-
-        bstackOptions.put("userName", userName);
-        bstackOptions.put("accessKey", accessKey);
-
-        caps.setCapability("app", browserStackYamlMap.get("app"));
-//        caps.setCapability("browserstack.user", userName);
-//        caps.setCapability("browserstack.key", accessKey);
-        caps.setCapability("app", browserStackYamlMap.get("app"));
+        // Устанавливаем app отдельно в capabilities (корневой уровень)
+        capabilities.setCapability("app", browserStackYamlMap.get("app"));
 
         bstackOptions.put("deviceName", device.get("deviceName"));
         bstackOptions.put("platformVersion", device.get("platformVersion"));
@@ -67,16 +60,18 @@ public class BrowserStackMobileDriver implements WebDriverProvider {
         bstackOptions.put("source", "junit5:appium-sample-sdk:v1.1");
         bstackOptions.put("buildIdentifier", browserStackYamlMap.get("buildIdentifier"));
 
-        caps.setCapability("bstack:options", bstackOptions);
+        capabilities.setCapability("bstack:options", bstackOptions);
 
-        return new AndroidDriver(getBrowserStackUrl(), capabilities);
+        String url = String.format("https://%s:%s@hub.browserstack.com/wd/hub", userName , accessKey);
+
+        driver = new AndroidDriver(new URL(url), capabilities);
     }
 
-    private static URL getBrowserStackUrl(){
-        try {
-            return new URL("https://hub.browserstack.com/wd/hub");
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
+    @AfterEach
+    public void tearDown() {
+        if (driver != null){
+
+            driver.quit();
         }
     }
 
@@ -95,5 +90,4 @@ public class BrowserStackMobileDriver implements WebDriverProvider {
         }
         return map;
     }
-
 }

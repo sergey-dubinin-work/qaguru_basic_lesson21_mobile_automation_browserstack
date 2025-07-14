@@ -1,5 +1,6 @@
-package sample;
+package guru.qa.tests;
 
+import guru.qa.drivers.BstackRunner;
 import io.appium.java_client.AppiumBy;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;

@@ -1,9 +1,9 @@
-package selenoidSample.tests;
+package guru.qa.tests;
 
 import com.codeborne.selenide.CollectionCondition;
+import guru.qa.TestBase;
 import io.appium.java_client.AppiumBy;
 import org.junit.jupiter.api.Test;
-import selenoidSample.TestBase;
 
 import static com.codeborne.selenide.Selenide.*;
 
