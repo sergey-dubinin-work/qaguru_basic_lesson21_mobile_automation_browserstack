@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import guru.qa.drivers.BrowserStackMobileDriver;
 
+import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 
 public class TestBase {
@@ -24,7 +25,13 @@ public class TestBase {
 
     @AfterEach
     void tearDown() {
+        String sessionId = Attach.getSessionId();
+
         Attach.screenshotAs("Last screenshot");
         Attach.pageSource();
+
+        closeWebDriver();
+
+        Attach.addAutoplayVideo(sessionId);
     }
 }

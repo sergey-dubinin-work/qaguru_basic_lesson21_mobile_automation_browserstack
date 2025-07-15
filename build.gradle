@@ -12,7 +12,8 @@ def jUnitVersion = "6.0.0-M1",
     appiumClientVersion = "8.6.0",
     selenideVersion = "6.17.2",
     browserStackSDKVersion = "1.36.0",
-    allureVersion = '2.29.0'
+    allureVersion = '2.29.0',
+    restAssuredVersion = '5.5.5'
 
 allure {
     report {
@@ -34,7 +35,8 @@ dependencies {
         "org.junit.jupiter:junit-jupiter-api:$jUnitVersion",
         "io.appium:java-client:$appiumClientVersion",
         "com.codeborne:selenide:$selenideVersion",
-        "com.browserstack:browserstack-java-sdk:$browserStackSDKVersion"
+        "com.browserstack:browserstack-java-sdk:$browserStackSDKVersion",
+        "io.rest-assured:rest-assured:$restAssuredVersion"
     )
     testRuntimeOnly(
         "org.junit.jupiter:junit-jupiter-engine:$jUnitVersion",
