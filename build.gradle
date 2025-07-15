@@ -35,6 +35,7 @@ dependencies {
         "org.junit.jupiter:junit-jupiter-api:$jUnitVersion",
         "io.appium:java-client:$appiumClientVersion",
         "com.codeborne:selenide:$selenideVersion",
+        "io.qameta.allure:allure-selenide:$allureVersion",
         "com.browserstack:browserstack-java-sdk:$browserStackSDKVersion",
         "io.rest-assured:rest-assured:$restAssuredVersion"
     )
