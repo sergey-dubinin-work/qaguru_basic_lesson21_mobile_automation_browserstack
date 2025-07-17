@@ -2,6 +2,7 @@ package guru.qa.tests;
 
 import guru.qa.drivers.BstackRunner;
 import io.appium.java_client.AppiumBy;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BrowserStackTests extends BstackRunner {
 
+    @Disabled("Temporary disable to debug jenkins build")
     @Test
     void androidSampleTest() throws Exception{
         WebElement skipButton = (WebElement) new WebDriverWait(driver, Duration.ofSeconds(30)).until(

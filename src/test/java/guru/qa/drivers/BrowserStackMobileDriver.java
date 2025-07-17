@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static guru.qa.configuration.ConfigurationManager.*;
+
 
 public class BrowserStackMobileDriver implements WebDriverProvider {
 
@@ -30,14 +32,6 @@ public class BrowserStackMobileDriver implements WebDriverProvider {
     @Override
     public WebDriver createDriver(Capabilities capabilities) {
 
-        String userName = System.getenv("BROWSERSTACK_USERNAME") != null
-                ? System.getenv("BROWSERSTACK_USERNAME")
-                : (String) browserStackYamlMap.get("userName");
-
-        String accessKey = System.getenv("BROWSERSTACK_ACCESS_KEY") != null
-                ? System.getenv("BROWSERSTACK_ACCESS_KEY")
-                : (String) browserStackYamlMap.get("accessKey");
-
         // Получаем первое устройство из platforms
         List<Map<String, Object>> platforms = (List<Map<String, Object>>) browserStackYamlMap.get("platforms");
         Map<String, Object> device = platforms.get(0);
@@ -47,8 +41,8 @@ public class BrowserStackMobileDriver implements WebDriverProvider {
 
         MutableCapabilities caps = (MutableCapabilities) capabilities;
 
-        bstackOptions.put("userName", userName);
-        bstackOptions.put("accessKey", accessKey);
+        bstackOptions.put("userName", getBrowserStackConfig().userName());
+        bstackOptions.put("accessKey", getBrowserStackConfig().accessKey());
 
         caps.setCapability("app", browserStackYamlMap.get("app"));
 //        caps.setCapability("browserstack.user", userName);
@@ -74,7 +68,7 @@ public class BrowserStackMobileDriver implements WebDriverProvider {
 
     private static URL getBrowserStackUrl(){
         try {
-            return new URL("https://hub.browserstack.com/wd/hub");
+            return new URL(getBrowserStackConfig().browserstackUrl());
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }

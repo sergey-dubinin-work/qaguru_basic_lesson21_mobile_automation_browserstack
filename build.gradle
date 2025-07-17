@@ -13,7 +13,8 @@ def jUnitVersion = "6.0.0-M1",
     selenideVersion = "6.17.2",
     browserStackSDKVersion = "1.36.0",
     allureVersion = '2.29.0',
-    restAssuredVersion = '5.5.5'
+    restAssuredVersion = '5.5.5',
+    ownerVersion = "1.0.12"
 
 allure {
     report {
@@ -37,7 +38,8 @@ dependencies {
         "com.codeborne:selenide:$selenideVersion",
         "io.qameta.allure:allure-selenide:$allureVersion",
         "com.browserstack:browserstack-java-sdk:$browserStackSDKVersion",
-        "io.rest-assured:rest-assured:$restAssuredVersion"
+        "io.rest-assured:rest-assured:$restAssuredVersion",
+        "org.aeonbits.owner:owner:$ownerVersion"
     )
     testRuntimeOnly(
         "org.junit.jupiter:junit-jupiter-engine:$jUnitVersion",
