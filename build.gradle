@@ -1,6 +1,7 @@
 plugins{
     id 'java-library'
     id 'io.qameta.allure' version "2.12.0"
+    id 'io.freefair.lombok' version "8.14"
 }
 
 repositories {
@@ -14,7 +15,8 @@ def jUnitVersion = "6.0.0-M1",
     browserStackSDKVersion = "1.36.0",
     allureVersion = '2.29.0',
     restAssuredVersion = '5.5.5',
-    ownerVersion = "1.0.12"
+    ownerVersion = "1.0.12",
+    jacksonVersion = "2.19.1"
 
 allure {
     report {
@@ -39,7 +41,8 @@ dependencies {
         "io.qameta.allure:allure-selenide:$allureVersion",
         "com.browserstack:browserstack-java-sdk:$browserStackSDKVersion",
         "io.rest-assured:rest-assured:$restAssuredVersion",
-        "org.aeonbits.owner:owner:$ownerVersion"
+        "org.aeonbits.owner:owner:$ownerVersion",
+        "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
     )
     testRuntimeOnly(
         "org.junit.jupiter:junit-jupiter-engine:$jUnitVersion",

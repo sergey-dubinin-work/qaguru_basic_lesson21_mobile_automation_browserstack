@@ -3,6 +3,9 @@ package guru.qa;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import guru.qa.helpers.Attach;
+import guru.qa.helpers.BrowserStack;
+import guru.qa.helpers.Driver;
+import guru.qa.helpers.models.SessionDetails;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -29,13 +32,16 @@ public class TestBase {
 
     @AfterEach
     void tearDown() {
-        String sessionId = Attach.getSessionId();
+        String sessionId = Driver.getSessionId();
+
+        SessionDetails sessionDetails = BrowserStack.getSessionDetails(sessionId);
 
         Attach.screenshotAs("Last screenshot");
         Attach.pageSource();
 
         closeWebDriver();
 
-        Attach.addAutoplayVideo(sessionId);
+        Attach.autoplayVideo(sessionDetails.getVideoUrl());
     }
+
 }

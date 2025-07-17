@@ -1,42 +1,42 @@
 package guru.qa.helpers;
 
 import io.qameta.allure.Attachment;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 
-import static com.codeborne.selenide.WebDriverRunner.driver;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static java.util.Objects.isNull;
 
 public class Attach {
 
     @Attachment(value = "{attachName}", type = "text/plain")
-    public static String attachAsText(String attachName, String message){
+    public static String asText(String attachName, String message){
         return message;
     }
 
     @Attachment(value = "Page Source", type = "text/xml")
     public static byte[] pageSource(){
-        return getWebDriver().getPageSource().getBytes(StandardCharsets.UTF_8);
+        return Driver.getPageSource();
     }
 
     @Attachment(value = "{attachName}", type = "image/png")
     public static byte[] screenshotAs(String attachName){
-        return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
+        return Driver.getScreenshot();
     }
 
     @Attachment(value = "Autoplay video", type = "text/html", fileExtension = ".html")
-    public static String addAutoplayVideo(String sessionId) {
+    public static String autoplayVideo(String videoUrl) {
 
-        return loadTemplate("templatesHTML/autoplayVideo.html").replace(
-                "{{video_url}}",
-                BrowserStack.getVideoUrl(sessionId).toString()
-        );
+        if (!isNull(videoUrl)){
+            return loadTemplate("templatesHTML/autoplayVideo.html").replace(
+                    "{{video_url}}",
+                    videoUrl
+            );
+        }
 
+        return "<html><body><p><b>Video URL is null</b></p></body></html>";
     }
 
     public static String loadTemplate(String templatePath) {
@@ -48,10 +48,6 @@ public class Attach {
         } catch (IOException e) {
             throw new UncheckedIOException("Failed to load template: " + templatePath, e);
         }
-    }
-
-    public static String getSessionId(){
-        return driver().getSessionId().toString();
     }
 
 }
