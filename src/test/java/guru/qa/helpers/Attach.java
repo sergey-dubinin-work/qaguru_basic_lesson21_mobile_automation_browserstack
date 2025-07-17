@@ -36,7 +36,7 @@ public class Attach {
             );
         }
 
-        return "<html><body><p><b>Video URL is null</b></p></body></html>";
+        return loadTemplate("templatesHTML/noVideo.html");
     }
 
     @Attachment(value = "{attachName}", type = "text/html", fileExtension = ".html")
@@ -48,7 +48,7 @@ public class Attach {
 
     }
 
-    public static String loadTemplate(String templatePath) {
+    private static String loadTemplate(String templatePath) {
         try (InputStream inputStream = ClassLoader.getSystemResourceAsStream(templatePath)) {
             if (inputStream == null) {
                 throw new IllegalArgumentException("Template file not found: " + templatePath);
