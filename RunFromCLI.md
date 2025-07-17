@@ -1,3 +1,9 @@
 ```
-gradle clean test "-Dbrowserstack.url=https://hub.browserstack.com/wd/hub" "-Dbrowserstack.userName=bsuser_0ICnjh" "-Dbrowserstack.accessKey=WyBWBXh51LtBL12SNRrq"
+gradle
+clean
+test
+"-Dbrowserstack.api.url=https://api.browserstack.com"
+"-Dbrowserstack.wd.url=https://hub.browserstack.com/wd/hub"
+"-Dbrowserstack.userName=bsuser_0ICnjh"
+"-Dbrowserstack.accessKey=WyBWBXh51LtBL12SNRrq"
 ```

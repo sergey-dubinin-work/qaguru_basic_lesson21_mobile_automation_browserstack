@@ -39,6 +39,15 @@ public class Attach {
         return "<html><body><p><b>Video URL is null</b></p></body></html>";
     }
 
+    @Attachment(value = "{attachName}", type = "text/html", fileExtension = ".html")
+    public static String url(String attachName, String url){
+
+        return loadTemplate("templatesHTML/simpleLink.html")
+                .replace("{{link_description}}", attachName)
+                .replace("{{link_url}}", url);
+
+    }
+
     public static String loadTemplate(String templatePath) {
         try (InputStream inputStream = ClassLoader.getSystemResourceAsStream(templatePath)) {
             if (inputStream == null) {

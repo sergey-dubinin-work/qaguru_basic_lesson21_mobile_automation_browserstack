@@ -9,7 +9,10 @@ import org.aeonbits.owner.Config;
 })
 public interface BrowserStackConfiguration extends Config {
 
-    @Key("browserstack.url")
+    @Key("browserstack.api.url")
+    String browserstackApiUrl();
+
+    @Key("browserstack.wd.url")
     String browserstackUrl();
 
     @Key("browserstack.userName")

@@ -42,6 +42,10 @@ public class TestBase {
         closeWebDriver();
 
         Attach.autoplayVideo(sessionDetails.getVideoUrl());
+        Attach.url("Logs", sessionDetails.getLogsUrl());
+        Attach.url("Appium Logs", sessionDetails.getAppiumLogsUrl());
+        Attach.url("Device Logs", sessionDetails.getDeviceLogsUrl());
+
     }
 
 }
